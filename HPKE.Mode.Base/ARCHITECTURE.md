@@ -55,21 +55,21 @@ For this ciphersuite, the AEAD output sizes are:
 
 ```mermaid
 flowchart TD
-    A[suite_id = "HPKE" || kem_id || kdf_id || aead_id] --> B[psk = "" and psk_id = "" (Base mode)]
-    B --> C[psk_id_hash = LabeledExtract("", "psk_id_hash", psk_id)]
+    A[suite_id = concat HPKE kem_id kdf_id aead_id] --> B[Base mode with empty psk and empty psk_id]
+    B --> C[psk_id_hash = LabeledExtract empty psk_id_hash psk_id]
     A --> C
 
-    D[info (application context)] --> E[info_hash = LabeledExtract("", "info_hash", info)]
+    D[info application context] --> E[info_hash = LabeledExtract empty info_hash info]
     A --> E
 
-    C --> F[key_schedule_context = mode || psk_id_hash || info_hash]
+    C --> F[key_schedule_context = concat mode psk_id_hash info_hash]
     E --> F
 
-    G[shared_secret from KEM ExtractAndExpand] --> H[secret = LabeledExtract(shared_secret, "secret", psk)]
+    G[shared_secret from KEM ExtractAndExpand] --> H[secret = LabeledExtract shared_secret secret psk]
     A --> H
 
-    H --> I[key = LabeledExpand(secret, "key", key_schedule_context, Nk=32)]
-    H --> J[nonce = LabeledExpand(secret, "nonce", key_schedule_context, Nn=12)]
+    H --> I[key = LabeledExpand secret key key_schedule_context Nk 32]
+    H --> J[nonce = LabeledExpand secret nonce key_schedule_context Nn 12]
     F --> I
     F --> J
     A --> I
