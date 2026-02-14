@@ -4,5 +4,6 @@
   </Folder>
   <Project Path="HPKE.Mode.Base/HPKE.Mode.Base.csproj" />
   <Project Path="HPKE.Mode.Auth/HPKE.Mode.Auth.csproj" />
+  <Project Path="HPKE.Mode.Auth_PSK/HPKE.Mode.Auth_PSK.csproj" />
   <Project Path="HPKE.Mode.PSK/HPKE.Mode.PSK.csproj" />
 </Solution>
